@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+.email_list .radio {
+    margin-left: 20px;
+}
+.accounts h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+</style>
+<div class="container accounts">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            {% load url from future %}
+            {% load i18n %}
+            {% block content %}
+
+            <h1>{% trans 'My Account' %}</h1>
+
+            <div class="panel panel-default">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="{% block account_nav_profile %}{% endblock %}">
+                    <a href="{% url 'profile' %}">{% trans 'Profile' %}</a>
+                    </li>
+                    <li class="{% block account_nav_email %}{% endblock %}">
+                    <a href="{% url 'account_email' %}">{% trans 'E-mail' %}</a>
+                    </li>
+                    <li class="{% block account_nav_change_password %}{% endblock %}">
+                    <a href="{% url 'account_change_password' %}">{% trans 'Password' %}</a>
+                    </li>
+                    {% url 'socialaccount_connections' as connections_url %}
+                    {% if connections_url %}
+                    <li class="{% block account_nav_socialaccount_connections %}{% endblock %}">
+                    <a href="{{ connections_url}}">{% trans 'Connected Accounts' %}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <div class="panel-body">
+                    {% block account_content %}
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

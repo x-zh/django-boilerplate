@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap %}
+
+{% block head_title %}{% trans "Change Password" %}{% endblock %}
+{% block account_nav_profile %}active{% endblock %}
+
+{% block account_content %}
+    {% if success %}
+    <div class="alert alert-success">
+        Profile Updated Successfully
+    </div>
+    {% endif %}
+    <form method="POST" action="" class="form-horizontal">
+        {% csrf_token %}
+        {{ profile_form|bootstrap_horizontal:"col-sm-3" }}
+        <div class="form-actions">
+            <div class="col-sm-9 col-sm-offset-3">
+                <button class="btn btn-primary" type="submit" name="action">{% trans "Update Profile" %}</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
